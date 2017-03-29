@@ -6,9 +6,9 @@
 
 ```php
 // 使用者可以把設定檔存在任何地方，只需要符合 GatewayConfig 介面就可以
-$config = new Muk\DefaultGatewayConfig;
+$config = new \Muk\DefaultGatewayConfig;
 
-array_push($config->mappings, new Muk\Config\Mapping\DefaultMapping([
+array_push($config->mappings, new \Muk\Config\Mapping\DefaultMapping([
     'number' => 'mchId',
     'orderId' => 'outTradeNo',
     'orderCreateDate' => 'tradeTime',
@@ -18,7 +18,16 @@ array_push($config->mappings, new Muk\Config\Mapping\DefaultMapping([
     'notify_url' => 'returnUrl'
 ]));
 
-$signConfig = new Muk\Config\SignConfig\DefaultSignConfig;
+// push empty mapping and do nothing
+array_push($config->mappings, new \Muk\Config\Mapping\DefaultMapping([]));
+
+// final mapping
+array_push(
+    $config->mappings,
+    new \Muk\Config\Mapping\DefaultMapping([/* some data */])
+);
+
+$signConfig = new \Muk\Config\SignConfig\DefaultSignConfig;
 $signConfig->keys = [
     'version', 'encoding', 'mchId', 'cmpAppId',
     'payTypeCode', 'outTradeNo', 'tradeTime', 'amount',
@@ -35,7 +44,7 @@ $config->signConfig = $signConfig;
 
 $endpoint = new \Muk\Config\Endpoint\DefaultEndpoint([
     'method' => 'post',
-    'uri' => '/pre.lepay.api/order/add',
+    'uri' => '/order/add',
     'host' => 'payment.xyz.com.tw',
     'contentType' => 'application/x-form-urlencoded'
 ]);
