@@ -14,6 +14,9 @@ class PaymentGatewayTest extends TestCase
     {
         // fetch config from any place
         // $config = DB::fetch(...);
+        $config = new PaymentGatewayConfig;
+
+        $config->process = new DefaultProcess;
 
         if (!($config instanceof PaymentGatewayConfigInterface)) {
             $this->fails();
