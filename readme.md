@@ -1,18 +1,27 @@
 Usage
 
+You can push any step into process, idealy you can organize any process with steps, for example, process for creating an order, process for quering existing order, process for verify order status, etc.
+
+Create an order:
+
 ```php
 $process = new Process;
 
-$process->push(new Step\MapData, new Mappping([]));
-$process->push(new Step\Sign, [new Sign\HttpBuildQuery, new Sign\UrlDecode, new Sign\Md5]);
-
-$order = PaymentGateway::with($process)->createOrder($someKindOfOriginData);
-
-$this->assertInstanceOf(Order::class, $order);
-
-$order->toArray();
+// new order
+$order = $process
+    ->push(new Step\MapData(new Mappping([/* mapping */])));
+    ->push(new Step\Sign('target_key', [new Step\Sign\HttpBuildQuery, new Step\Sign\UrlDecode, new Step\Sign\Md5]))
+    ->execute($originData);
 ```
 
-We also provide a default `Process`.
+Query existing order:
 
-Config should be serializable in order to store in database.
+```php
+$process = new Process;
+
+// order status
+$status = $process
+    ->push(new Step\MapData(new Mapping([/* mapping */])));
+    ->push(new Step\Send(new Endpoint))
+    ->execute($originData);
+```
