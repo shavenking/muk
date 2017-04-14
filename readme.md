@@ -1,4 +1,4 @@
-Usage
+## Usage
 
 You can push any step into process, idealy you can organize any process with steps, for example, process for creating an order, process for quering existing order, process for verify order status, etc.
 
@@ -25,3 +25,7 @@ $status = $process
     ->push(new Step\Send(new Endpoint))
     ->execute($originData);
 ```
+
+## What's next step?
+
+- [ ] Provide default process that has all steps needed in common payment gateway usage
