@@ -26,6 +26,24 @@ $status = $process
     ->execute($originData);
 ```
 
+Dump process as JSON so that you can store the entire process into database.
+
+```php
+$process = new Process;
+
+$process
+    ->push(new Step\MapData(new Mapping\Mapping([/* mapping */])));
+    ->push(new Step\Send(new Endpoint\Endpoint($endpointConfig)));
+
+DB::insert('some_table', [
+    'name' => 'some name',
+    'some_json_column' => $process->toJson()
+]);
+
+$process->toJson() === json_encode($process); // true
+```
+
 ## What's next step?
 
 - [ ] Provide default process that has all steps needed in common payment gateway usage
+- [ ] Provide better config structure for stroing in database
