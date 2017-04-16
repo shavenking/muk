@@ -43,7 +43,7 @@ DB::insert('some_table', [
 $process->toJson() === json_encode($process); // true
 ```
 
-## What's next step?
+## What's next?
 
 - [ ] Provide default process that has all steps needed in common payment gateway usage
 - [ ] Provide better config structure for stroing in database
