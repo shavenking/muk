@@ -9,8 +9,8 @@ $process = new Process;
 
 // new order
 $order = $process
-    ->push(new Step\MapData(new Mappping([/* mapping */])));
-    ->push(new Step\Sign('target_key', [new Step\Sign\HttpBuildQuery, new Step\Sign\UrlDecode, new Step\Sign\Md5]))
+    ->push(new Step\MapData(new Mapping\Mappping([/* mapping */])));
+    ->push(new Step\Sign('target_key', [new SignStrategy\HttpBuildQuery, new SignStrategy\UrlDecode, new SignStrategy\Md5]))
     ->execute($originData);
 ```
 
@@ -21,8 +21,8 @@ $process = new Process;
 
 // order status
 $status = $process
-    ->push(new Step\MapData(new Mapping([/* mapping */])));
-    ->push(new Step\Send(new Endpoint))
+    ->push(new Step\MapData(new Mapping\Mapping([/* mapping */])));
+    ->push(new Step\Send(new Endpoint\Endpoint($endpointConfig)))
     ->execute($originData);
 ```
 
